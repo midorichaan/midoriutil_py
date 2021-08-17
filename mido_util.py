@@ -114,11 +114,15 @@ def is_jun50(ctx, member=None):
 
 #get_guild_or_user
 async def get_guild_or_user(ctx, id):
-    if ctx.bot.get_guild(id) is None:
+    guild = ctx.bot.get_guild(int(id))
+    
+    if guild is None:
         try:
             return await FetchUserConverter().convert(ctx, str(id))
         except:
             raise commands.BadArgument(f"ID {id} not guild or user.")
+    else:
+        return guild
     
 #choice
 def choice(l, c=1):
